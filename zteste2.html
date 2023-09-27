@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Encadeada Simples</title>
+    <link rel="stylesheet" type="text/css" href="zteste.css">
+    <style>
+        input[type="text"] {
+            border: none; 
+            outline: none;  
+            background: #32a899; 
+            color: black;
+        }
+
+        body {
+    margin: 0;
+    padding: 0;
+    background-color: #4e32a8;  
+}
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista Encadeada Simples</h1>
+        <p>Status: <span id="status"></span></p>
+
+        <h2>Operações</h2>
+        <div class="operation-container">
+            <button class="operation-button" onclick="criarLista()">Criar Lista</button>
+            <input class="mensagem" type="text" id="tamanhoListaInput" placeholder="Tamanho Máximo">
+            <button onclick="criarLista()">Confirmar</button>
+        </div>
+
+        <div class="operation-container">
+            <button class="operation-button" onclick="verificarVazia()">Verificar se Vazia</button>
+            <button class="operation-button" onclick="obterTamanho()">Obter Tamanho</button>
+        </div>
+
+        <div class="operation-container">
+            <input class="mensagem" type="text" id="posicaoInput" placeholder="Posição">
+            <input class="mensagem" type="text" id="valorInput" placeholder="Valor">
+            <button class="operation-button" onclick="inserirElemento()">Inserir Elemento</button>
+            <button class="operation-button" onclick="removerElemento()">Remover Elemento</button>
+            <button class="operation-button" onclick="consultarElemento()">Consultar Elemento</button>
+        </div>
+
+        <div class="operation-container">
+            <input class="mensagem" type="text" id="posicaoInputMostrar" placeholder="Posição">
+            <button class="operation-button" onclick="mostrarValorSeguinte()">Mostrar Valor a Seguir</button>
+        </div>
+
+        <div class="operation-container">
+            <input class="mensagem" type="text" id="valorRemoverInput" placeholder="Valor a Remover">
+            <button class="operation-button" onclick="removerElementoPorValor()">Remover por Valor</button>
+        </div>
+        <div class="operation-container">
+            <input class="mensagem" type="text" id="valorConsultarInput" placeholder="Valor a Consultar">
+            <button class="operation-button" onclick="consultarElementoPorValor()">Consultar por Valor</button>
+        </div>
+        
+
+    
+     <h2>Resultados</h2>
+        <p>Tamanho da Lista: <span id="tamanhoLista"></span></p>
+        <p>Elemento Consultado: <span id="elementoConsultado"></span></p>
+        <p id="resultadoValorSeguinte">Valor Seguinte: <span id="valorSeguinte"></span></p>
+        
+        <h2>Lista</h2>
+        <ul id="listaElementos"></ul>
+        
+        <div class="container"> 
+            <a href="./zselecionatela.html"><button class="float-left">TELA INICIAL</button></a> 
+            <a href="./zteste.html"><button class="float-left">LISTA SEQUENCIAL</button></a>   
+            <a href="./zteste3.html"><button class="float-left">LISTA DUPLAMENTE ENCADEADA</button></a>
+           
+            
+            
+        </div>
+    </div>
+
+    <script>
+        class No {
+            constructor(valor) {
+                this.conteudo = valor;
+                this.prox = null;
+            }
+        }
+
+        class LSE {
+            constructor(tamanhoMaximo) {
+        this.cabeca = null;
+        this.nElementos = 0;
+        this.tamanhoMaximo = tamanhoMaximo;
+    }
+
+            vazia() {
+                return this.nElementos === 0;
+            }
+
+            tamanho() {
+                return this.nElementos;
+            }
+
+            inserirInicioLista(valor) {
+                const novoNo = new No(valor);
+                novoNo.prox = this.cabeca;
+                this.cabeca = novoNo;
+                this.nElementos++;
+            }
+
+             
+            inserirEmPosicao(posicao, valor) {
+        if (this.nElementos >= this.tamanhoMaximo) {
+            return false;  
+        }
+
+                if (posicao === 1) {
+                    this.inserirInicioLista(valor);
+                } else {
+                    const novoNo = new No(valor);
+                    let atual = this.cabeca;
+                    let anterior = null;
+                    let contador = 1;
+
+                    while (contador < posicao) {
+                        anterior = atual;
+                        atual = atual.prox;
+                        contador++;
+                    }
+
+                    novoNo.prox = atual;
+                    anterior.prox = novoNo;
+                    this.nElementos++;
+                }
+
+                return true;
+            }
+
+            removerEmPosicao(posicao) {
+                if (posicao < 1 || posicao > this.nElementos) {
+                    return null;
+                }
+
+                let atual = this.cabeca;
+                let anterior = null;
+                let contador = 1;
+
+                if (posicao === 1) {
+                    this.cabeca = atual.prox;
+                } else {
+                    while (contador < posicao) {
+                        anterior = atual;
+                        atual = atual.prox;
+                        contador++;
+                    }
+
+                    anterior.prox = atual.prox;
+                }
+
+                this.nElementos--;
+                return atual.conteudo;
+            }
+
+            consultarEmPosicao(posicao) {
+                if (posicao < 1 || posicao > this.nElementos) {
+                    return null;
+                }
+
+                let atual = this.cabeca;
+                let contador = 1;
+
+                while (contador < posicao) {
+                    atual = atual.prox;
+                    contador++;
+                }
+
+                return atual.conteudo;
+            }
+        }
+
+        var lista = null;
+
+        function criarLista() {
+    var tamanhoMaximo = parseInt(document.getElementById("tamanhoListaInput").value);
+
+    if (isNaN(tamanhoMaximo) || tamanhoMaximo <= 0) {
+        document.getElementById("status").innerText = "Informe um tamanho máximo válido.";
+        return;
+    }
+
+    lista = new LSE(tamanhoMaximo);  
+    document.getElementById("status").innerText = "Lista criada com tamanho máximo de " + tamanhoMaximo + ".";
+    mostrarLista();
+}
+
+
+        function verificarVazia() {
+            if (lista && !lista.vazia()) {
+                document.getElementById("status").innerText = "A lista não está vazia.";
+            } else {
+                document.getElementById("status").innerText = "A lista está vazia.";
+            }
+        }
+
+        function obterTamanho() {
+            if (lista) {
+                document.getElementById("tamanhoLista").innerText = lista.tamanho();
+            } else {
+                document.getElementById("status").innerText = "Crie uma lista primeiro.";
+            }
+        }
+
+        function inserirElemento() {
+            if (!lista) {
+                document.getElementById("status").innerText = "Crie uma lista primeiro.";
+                return;
+            }
+
+            var posicao = parseInt(document.getElementById("posicaoInput").value);
+            var valor = parseInt(document.getElementById("valorInput").value);
+
+            if (isNaN(posicao) || isNaN(valor)) {
+                document.getElementById("status").innerText = "Informe valores válidos.";
+                return;
+            }
+
+     
+            if (lista.inserirEmPosicao(posicao, valor)) {
+                document.getElementById("status").innerText = "Elemento inserido.";
+                document.getElementById("posicaoInput").value = "";
+                document.getElementById("valorInput").value = "";
+                mostrarLista();
+                obterTamanho();  
+            } else {
+                document.getElementById("status").innerText = "Posição inválida.";
+            }
+        }
+
+        function removerElemento() {
+            if (!lista) {
+                document.getElementById("status").innerText = "Crie uma lista primeiro.";
+                return;
+            }
+
+            var posicao = parseInt(document.getElementById("posicaoInput").value);
+
+            if (isNaN(posicao)) {
+                document.getElementById("status").innerText = "Informe uma posição válida.";
+                return;
+            }
+
+        
+            var elementoRemovido = lista.removerEmPosicao(posicao);
+
+            if (elementoRemovido !== null) {
+                document.getElementById("status").innerText = "Elemento removido: " + elementoRemovido;
+                document.getElementById("posicaoInput").value = "";
+                mostrarLista();
+                obterTamanho();  
+            } else {
+                document.getElementById("status").innerText = "Posição inválida.";
+            }
+        }
+
+        function consultarElemento() {
+            if (!lista) {
+                document.getElementById("status").innerText = "Crie uma lista primeiro.";
+                return;
+            }
+
+            var posicao = parseInt(document.getElementById("posicaoInput").value);
+
+            if (isNaN(posicao)) {
+                document.getElementById("status").innerText = "Informe uma posição válida.";
+                return;
+            }
+ 
+            var elementoConsultado = lista.consultarEmPosicao(posicao);
+
+            if (elementoConsultado !== null) {
+                document.getElementById("elementoConsultado").innerText = elementoConsultado;
+            } else {
+                document.getElementById("elementoConsultado").innerText = "Posição inválida.";
+            }
+
+            document.getElementById("posicaoInput").value = "";
+        }
+
+       /* function mostrarLista() {
+    var listaElementos = document.getElementById("listaElementos");
+    listaElementos.innerHTML = ""; // Limpa a lista anterior
+
+    if (lista && !lista.vazia()) {
+        var current = lista.cabeca;
+        var posicao = 1;
+        while (current) {
+            var li = document.createElement("li");
+            li.className = "list-item";
+            var indexImage = document.createElement("img");
+            var span = document.createElement("span");
+            if(posicao== lista.cabeca){
+                li.innerText = `|Posição ${posicao}| ${current.conteudo} `;
+            } else{
+                li.innerText = `|Posição ${posicao}| ${current.conteudo} ->`;
+            }
+            
+            listaElementos.appendChild(li);
+            current = current.prox;
+            posicao++;
+        }
+    }
+}*/ 
+function mostrarLista() {
+    var listaElementos = document.getElementById("listaElementos");
+    listaElementos.innerHTML = ""; // Limpa a lista anterior
+
+    if (lista && !lista.vazia()) {
+        var current = lista.cabeca;
+        var posicao = 1;
+        while (current) {
+            var li = document.createElement("li");
+            li.className = "list-item";
+            var indexImage = document.createElement("img");
+            var span = document.createElement("span");
+
+            if (posicao === lista.nElementos) {
+                li.innerText = `|Posição ${posicao}| ${current.conteudo}`;
+            } else {
+                li.innerText = `|Posição ${posicao}| ${current.conteudo} ->`;
+            }
+
+            listaElementos.appendChild(li);
+            current = current.prox;
+            posicao++;
+        }
+    }
+}
+
+
+
+        function mostrarValorSeguinte() {
+    if (!lista) {
+        document.getElementById("status").innerText = "Crie uma lista primeiro.";
+        return;
+    }
+
+    var posicao = parseInt(document.getElementById("posicaoInputMostrar").value);
+
+    if (isNaN(posicao) || posicao < 1 || posicao > lista.tamanho()) {
+        document.getElementById("status").innerText = "Posição inválida.";
+        return;
+    }
+
+ 
+    var valorNaPosicao = lista.consultarEmPosicao(posicao);
+    var valorSeguinte = lista.consultarEmPosicao(posicao + 1);
+
+    if (valorNaPosicao !== null) {
+        var mensagem = "Valor na posição " + posicao + ": " + valorNaPosicao;
+        if (valorSeguinte !== null) {
+            mensagem += "<br>Valor seguinte: " + valorSeguinte;
+        } else {
+            mensagem += "<br>Não há valor seguinte.";
+        }
+        document.getElementById("resultadoValorSeguinte").innerHTML = mensagem;  
+    } else {
+        document.getElementById("resultadoValorSeguinte").innerText = "";  
+        document.getElementById("status").innerText = "Posição inválida.";
+    }
+
+    document.getElementById("posicaoInputMostrar").value = "";
+}
+function removerElementoPorValor() {
+            if (!lista) {
+                document.getElementById("status").innerText = "Crie uma lista primeiro.";
+                return;
+            }
+
+            var valorRemover = parseInt(document.getElementById("valorRemoverInput").value);
+
+            if (isNaN(valorRemover)) {
+                document.getElementById("status").innerText = "Informe um valor válido.";
+                return;
+            }
+ 
+            var posicao = 1;
+            var encontrado = false;
+            var current = lista.cabeca;
+            var anterior = null;
+
+            while (current) {
+                if (current.conteudo === valorRemover) {
+                    encontrado = true;
+                    break;
+                }
+                anterior = current;
+                current = current.prox;
+                posicao++;
+            }
+
+            if (encontrado) {
+                if (posicao === 1) {
+             
+                    lista.cabeca = current.prox;
+                } else {
+                    anterior.prox = current.prox;
+                }
+
+                lista.nElementos--;
+                document.getElementById("status").innerText = "Elemento removido: " + valorRemover;
+                mostrarLista();
+                obterTamanho();  
+            } else {
+                document.getElementById("status").innerText = "Elemento não encontrado na lista.";
+            }
+
+            document.getElementById("valorRemoverInput").value = "";
+        }
+
+
+        function consultarElementoPorValor() {
+    if (!lista) {
+        document.getElementById("status").innerText = "Crie uma lista primeiro.";
+        return;
+    }
+
+    var valorConsultar = parseInt(document.getElementById("valorConsultarInput").value);
+
+    if (isNaN(valorConsultar)) {
+        document.getElementById("status").innerText = "Informe um valor válido.";
+        return;
+    }
+
+    var posicao = 1;
+    var encontrado = false;
+    var current = lista.cabeca;
+
+    while (current) {
+        if (current.conteudo === valorConsultar) {
+            encontrado = true;
+            break;
+        }
+        current = current.prox;
+        posicao++;
+    }
+
+    if (encontrado) { 
+        var mensagem = "Elemento encontrado na posição: " + posicao + " e o valor foi: " + valorConsultar;
+        var valorSeguinte = lista.consultarEmPosicao(posicao + 1);
+        if (valorSeguinte !== null) {
+            mensagem += "<br>Valor seguinte: " + valorSeguinte;
+        } else {
+            mensagem += "<br>Não há valor seguinte.";
+        }
+        document.getElementById("resultadoValorSeguinte").innerHTML = mensagem;
+    } else {
+        document.getElementById("status").innerText = "Elemento não encontrado na lista.";
+        document.getElementById("resultadoValorSeguinte").innerText = "";  
+    }
+
+    document.getElementById("valorConsultarInput").value = "";
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Botão para Selecionar Arquivo Local</title>
+    <link rel="stylesheet" type="text/css" href="zteste.css">
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    background-color: #4e32a8; 
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    position: relative;  
+}
+
+.container::before {
+    content: "";
+    background-image: url('WhatsApp Image 2023-09-19 at 11.30.17.jpeg');
+    background-size: 60%;
+    background-position: top center;  
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; 
+    z-index: -1; 
+    opacity: 0.5; 
+}
+
+        .circle-image {
+            display: block;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0 auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h2>Grupo:</h2>
+            <img src="euro.jpg" class="circle-image" />
+            <h3>Euro Chaves</h3>
+        </div>
+        <div>
+            <img src="fernando.jpg" class="circle-image" />
+            <h3>Fernando d'Ávila</h3>
+        </div>
+        <div>
+            <img src="fahning.jpg" class="circle-image" />
+            <h3>João Alves</h3>
+        </div>
+        <div>
+            <img src="dantas2.png" class="circle-image" />
+            <h3>Gabriel Dantas</h3>
+           
+        </div>
+    </div>
+    <div class="container"> 
+        <a href="./zteste.html"><button class="float-left">LISTA SEQUENCIAL</button></a>   
+        <a href="./zteste2.html"><button class="float-left">LISTA SIMPLESMENTE ENCADEADA</button></a>
+        <a href="./zteste3.html"><button class="float-left">LISTA DUPLAMENTE ENCADEADA</button></a>
+       
+        
+        
+    </div>
+</body>
+</html>

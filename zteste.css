@@ -1,0 +1,129 @@
+        /* styles.css */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        p {
+            margin: 10px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4e32a8;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Define a cor do texto para mensagens como preto */
+        .mensagem {
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 1.0;
+        }
+        
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        ul li {
+            margin: 5px 0;
+        }
+        
+        .operation-button {
+            margin-right: 10px;
+        }
+        
+        .operation-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"] {
+            width: 200px; /* Ajuste o tamanho conforme necessário */
+        }
+        
+        .error-message {
+            color: red;
+        }
+        
+        .list-item img {
+                    width: 20px; /* Defina o tamanho desejado para as imagens dos índices */
+                    height: 20px;
+                    margin-right: 5px; /* Espaçamento entre a imagem e o elemento da lista */
+                }
+        
+        /* estilos.css */
+        
+        .operation-container {
+            display: flex;
+            align-items: center;
+            color:black;
+        }
+        /* Define a cor do texto para mensagens como preto */
+        .placeholder {
+            color: black !important; /* Use !important para garantir que essa regra prevaleça */
+        }
+        
+        
+        
+        .operation-button {
+            margin-right: 10px;
+        }
+        
+        .list-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .list-item img {
+            width: 20px; /* Defina o tamanho desejado para as imagens dos índices */
+            height: 20px;
+            margin-right: 5px; /* Espaçamento entre a imagem e o elemento da lista */
+        }
+        
+        input[type="text"] {
+            border: none; /* Remove a borda */
+            outline: none; /* Remove a borda de foco (linha pontilhada) quando você clica na caixa de texto */
+            background: #32a899; /* Torna o fundo transparente */
+            margin-right: 10px;
+            color:black;
+        }
+        input[type="number"] {
+            border: none; /* Remove a borda */
+            outline: none; /* Remove a borda de foco (linha pontilhada) quando você clica na caixa de texto */
+            background: #32a899; /* Torna o fundo transparente */
+            margin-right: 10px;
+            color:black;
+        }
+        .placeholder{
+            color:#000000;
+        }
+
+     
+        
